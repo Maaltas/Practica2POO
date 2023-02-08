@@ -1,12 +1,30 @@
 package Sessio1Practica2;
 
 class SenyalTransit {
-    private String tipus;
+    private int tipus;
     private String codi;
-    private Ubicacio u;
+    private Ubicacio ubicacio;
+    private int anyUbicacio;
+    private int anyRetirada;
+    static int Advertencia = 123;
+    static int Reglamentacio = 345;
+    static int Indicacio = 678;
+    SenyalTransit (String codi, Ubicacio ubicacio,int anyColocacio){
+        this.codi=codi;
+        this.ubicacio=ubicacio;
+        if(!this.ubicacio.afegirSenyal()){
 
+        }
+    }
     String getTipusSenyal(){
-        return tipus;
+        if (tipus==Advertencia){
+            return "Advertencia";
+        } else if (tipus==Reglamentacio){
+            return "Reglamentacio";
+        } else if (tipus==Indicacio){
+            return "Indicacio";
+        }
+        return null;
     }
     String getCodi(){
         switch (this.getTipusSenyal()) {
