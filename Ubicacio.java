@@ -2,41 +2,41 @@ package Sessio1Practica2;
 
 import java.util.Objects;
 
-class Ubicacio {
+public class Ubicacio {
     private int numCarrer;
     private String nomCarrer;
     private SenyalTransit [] senyals;
     private int numSenyals;
     private int maxSenyals;
 
-    Ubicacio(int Maxim, String carrer, int numero){
+    public Ubicacio(int Maxim, String carrer, int numero){
         maxSenyals=Maxim;
         nomCarrer=carrer;
         numCarrer=numero;
         senyals = new SenyalTransit[maxSenyals];
         numSenyals=0;
     }
-    String getNomCarrer(){
+    public String getNomCarrer(){
         return nomCarrer;
     }
-    int getNumCarrer(){
+    public int getNumCarrer(){
         return numCarrer;
     }
-    int getNumSenyals(){
+    public int getNumSenyals(){
         return numSenyals;
     }
-    boolean iguals (Ubicacio u){
+    public boolean iguals (Ubicacio u){
         return u.getNomCarrer().equals(this.getNomCarrer()) && u.numCarrer == this.numCarrer;
     }
-    SenyalTransit getSenyal(int quin){
+    public SenyalTransit getSenyal(int quin){
         if (quin>numSenyals){
             return null;
         } else {
             return this.senyals[quin];
         }
     }
-    boolean afegirSenyal (SenyalTransit c){
-        if (maxSenyals==numSenyals){
+    public boolean afegirSenyal (SenyalTransit c){
+        if (maxSenyals>=numSenyals){ //maxSenyals > numSenyals ?¿?¿?¿?
             return false;
         } else {
             for (int x=0; x<maxSenyals; x++){
@@ -52,7 +52,7 @@ class Ubicacio {
         }
         return false;
     }
-    boolean treureSenyal (SenyalTransit c) {
+    public boolean treureSenyal (SenyalTransit c) {
         for (int j = 0; j < numSenyals; j++) {
             if (senyals[j].equals(c)){
                 senyals[j]=senyals[numSenyals-1];
@@ -63,7 +63,7 @@ class Ubicacio {
         }
         return false;
     }
-    String getSenyals(){
+    public String getSenyals(){
         String s = "";
         for (int x=0; x<numSenyals; x++){
             if(x==0 || x==numSenyals-1){
@@ -71,9 +71,7 @@ class Ubicacio {
             } else {
                 s=s.concat(senyals[x].getCodi()) + " - ";
             }
-                  
         }
         return s;
     }
 }
-
