@@ -1,45 +1,80 @@
 package Sessio1Practica2;
 
-class SenyalTransit {
+import java.util.GregorianCalendar;
+
+public class SenyalTransit {
     private int tipus;
     private String codi;
     private Ubicacio ubicacio;
     private int anyUbicacio;
     private int anyRetirada;
-    static int Advertencia = 123;
-    static int Reglamentacio = 345;
-    static int Indicacio = 678;
-    SenyalTransit (String codi, Ubicacio ubicacio,int anyColocacio){
+    public static final int Quadrada = 1;
+    public static final int Rectangular = 2;
+    public static final int Triangular = 3;
+    public static final int Rodona = 4;
+    public SenyalTransit (String codi, Ubicacio ubicacio,int anyColocacio){
         this.codi=codi;
-        this.ubicacio=ubicacio;
-        if(!this.ubicacio.afegirSenyal()){
-
+        inicialitzarSenyal(this.codi.substring(5,7));
+        if(!ubicacio.afegirSenyal(this)){
+            this.ubicacio=null;
+            this.anyRetirada=anyColocacio;
+        } else {
+            this.ubicacio=ubicacio;
+            this.anyUbicacio=anyColocacio;
         }
     }
-    String getTipusSenyal(){
-        if (tipus==Advertencia){
-            return "Advertencia";
-        } else if (tipus==Reglamentacio){
-            return "Reglamentacio";
-        } else if (tipus==Indicacio){
-            return "Indicacio";
+    private void inicialitzarSenyal(String s){
+        switch (s) {
+            case "QUA" -> tipus = 1;
+            case "REC" -> tipus = 2;
+            case "TRI" -> tipus = 3;
+            case "ROD" -> tipus = 4;
         }
-        return null;
     }
-    String getCodi(){
-        switch (this.getTipusSenyal()) {
-            case "Advertencia":
-                return codi = "TRI";
-            case "Reglamentacio":
-                return codi = "ROD";
-            case "Indicacio":
-                if (this.getTipusSenyal().equals("IndicacioRectangular")) {
-                    return codi = "REC";
-                } else if (this.getTipusSenyal().equals("IndicacioQuadrada")) {
-                    return codi = "QUA";
-                }
-                break;
-        }
+    public String getTipusSenyal(){
+        return switch (tipus) {
+            case 1 -> "Indicacio";
+            case 2 -> "Indicacio";
+            case 3 -> "Advertencia";
+            case 4 -> "Reglamentacio";
+            default -> null;
+        };
+    }
+    public String getCodi(){
         return codi;
     }
+    public String getEstat() {
+        GregorianCalendar avui = new GregorianCalendar();
+        int num = avui.get(1) - this.anyUbicacio;
+        if (num > 4) {
+            return "vell";
+        } else if (num >= 2) {
+            return "semi nou";
+        } else
+            return "nou";
+    }
+    public boolean retirarViaPublica(){
+        if(!ubicacio.treureSenyal(this)){
+           return false;
+        } else {
+            GregorianCalendar avui = new GregorianCalendar();
+            ubicacio=null;
+            anyUbicacio=0;
+            anyRetirada=avui.get(1);
+            return true;
+        }
+    }
+    public boolean canviarUbicacio(Ubicacio ubicacioNova){
+        if(!ubicacioNova.afegirSenyal(this)){
+            return false;
+        } else {
+            if(ubicacioNova.treureSenyal(this)){
+                ubicacio=ubicacioNova;
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
 }
