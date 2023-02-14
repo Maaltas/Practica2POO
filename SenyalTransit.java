@@ -14,7 +14,7 @@ public class SenyalTransit {
     public static final int Rodona = 4;
     public SenyalTransit (String codi, Ubicacio ubicacio,int anyColocacio){
         this.codi=codi;
-        inicialitzarSenyal(this.codi.substring(5,7));
+        inicialitzarSenyal(this.codi);
         if(!ubicacio.afegirSenyal(this)){
             this.ubicacio=null;
             this.anyRetirada=anyColocacio;
@@ -24,7 +24,8 @@ public class SenyalTransit {
         }
     }
     private void inicialitzarSenyal(String s){
-        switch (s) {
+        String[] parts = s.split("-");
+        switch (parts[1]) {
             case "QUA" -> tipus = 1;
             case "REC" -> tipus = 2;
             case "TRI" -> tipus = 3;
@@ -44,8 +45,7 @@ public class SenyalTransit {
         return codi;
     }
     public String getEstat() {
-        GregorianCalendar avui = new GregorianCalendar();
-        int num = avui.get(1) - this.anyUbicacio;
+        int num = 2023 - this.anyUbicacio;
         if (num > 4) {
             return "vell";
         } else if (num >= 2) {
@@ -55,7 +55,7 @@ public class SenyalTransit {
     }
     public boolean retirarViaPublica(){
         if(!ubicacio.treureSenyal(this)){
-           return false;
+            return false;
         } else {
             GregorianCalendar avui = new GregorianCalendar();
             ubicacio=null;
