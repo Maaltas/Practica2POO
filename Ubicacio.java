@@ -7,14 +7,15 @@ public class Ubicacio {
     private String nomCarrer;
     private SenyalTransit [] senyals;
     private int numSenyals;
-    private int maxSenyals;
+    private final int maxSenyals;
 
     public Ubicacio(int Maxim, String carrer, int numero){
+        senyals = new SenyalTransit[Maxim];
+        numSenyals=0;
         maxSenyals=Maxim;
         nomCarrer=carrer;
         numCarrer=numero;
-        senyals = new SenyalTransit[maxSenyals];
-        numSenyals=0;
+        System.out.println("El numero de senyals es: " + numSenyals);
     }
     public String getNomCarrer(){
         return nomCarrer;
@@ -32,21 +33,23 @@ public class Ubicacio {
         if (quin>numSenyals){
             return null;
         } else {
-            return this.senyals[quin];
+            return senyals[quin];
         }
     }
     public boolean afegirSenyal (SenyalTransit c){
-        if (maxSenyals>=numSenyals){ //maxSenyals > numSenyals ?¿?¿?¿?
+        if (maxSenyals==numSenyals){
+            System.out.println("Esta entrant aqui");
             return false;
         } else {
             for (int x=0; x<maxSenyals; x++){
-                if (senyals[x].equals(c)){
+                if(senyals[x]==null){
+                    senyals[x]=c;
+                    numSenyals++;
+                    System.out.println("Senyal afegit amb exit");
+                    return true;
+                } else if (senyals[x].getCodi().equals(c.getCodi())){
+                    System.out.println("Aquesta senyal ja esta al array");
                     return false;
-                } else {
-                    if (senyals[x]==null){
-                        senyals[x]=c;
-                        numSenyals++;
-                    }
                 }
             }
         }
@@ -66,8 +69,8 @@ public class Ubicacio {
     public String getSenyals(){
         String s = "";
         for (int x=0; x<numSenyals; x++){
-            if(x==0 || x==numSenyals-1){
-                s=this.getNomCarrer();
+            if(x==numSenyals-1){
+                s=s.concat(senyals[x].getCodi());
             } else {
                 s=s.concat(senyals[x].getCodi()) + " - ";
             }
@@ -75,3 +78,4 @@ public class Ubicacio {
         return s;
     }
 }
+
