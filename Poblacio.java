@@ -123,33 +123,19 @@ public class Poblacio {
         }
         return 0;
     }
-    public int quantes (char inici, char fi){ 
-        String temp = String.valueOf(inici);
-        int code = temp.charAt(0); int total=0; // agafem el codi del caracter y d'aquesta manera sabem el interval que hem de recorrer
+    public int quantes (char inici, char fi){
+        String temp = String.valueOf(Character.toUpperCase(inici));
+        String temp1 = String.valueOf(Character.toUpperCase(fi));
+        int code = temp.charAt(0); 
+        int code1 = temp1.charAt(0);
+        int total=0;
         char c = ' ';
-        if (code>=65 && code<=73){
-            while (code>=65 && code<=73){
-                c = (char)code;
-                total = total+quantes(c);
-                code++;
-            }
-            return total;
-        } else if (code<78){
-            while (code<=78){
-                c = (char)code;
-                total = total+quantes(c);
-                code++;
-            }
-            return total;
-        } else if (code<90){
-            while (code<=90){
-                c = (char)code;
-                total = total+quantes(c);
-                code++;
-            }
-            return total;
+        while (code<=code1){
+            c = (char) code;
+            total = total + quantes(c);
+            code++;
         }
-        return 0;
+        return total;
     }
     private int comprovarCaracter(char s){ // metode que retorna la fila a la qual correspon el caracter introduit, nomes comprova caracters en majuscules pero ja ho te en compte la programacio
         if(s=='A' || s=='B' || s=='C' || s=='D' || s=='E' || s=='F' || s=='G' || s=='H'){
