@@ -109,7 +109,49 @@ public class Poblacio {
         }
         return false; // no pasa mai
     }
-    private int comprovarCaracter(char s){ // metode que retorna la fila a la qual correspon el caracter introduit, nomes comprova caracters en majuscules pero ja ho te en copte la programacio
+    public int quantes(){
+        return recurregutMetodeQuantes(numAH,0)+recurregutMetodeQuantes(numIN,1)+recurregutMetodeQuantes(numOZ,2);
+    }
+    public int quantes (char quin){
+        int fila = comprovarCaracter(Character.toUpperCase(quin));
+        int length = saberLlargariaFila(fila);
+        int total=0;
+        for (int y=0; y<length; y++){
+            if (ubicacio[fila][y].getNomCarrer().toUpperCase().charAt(0)==quin){
+                total=total+ubicacio[fila][y].getNumSenyals();
+            }
+        }
+        return 0;
+    }
+    public int quantes (char inici, char fi){
+        String temp = String.valueOf(inici);
+        int code = temp.charAt(0); int total=0;
+        char c = ' ';
+        if (code>=65 && code<=73){
+            while (code>=65 && code<=73){
+                c = (char)code;
+                total = total+quantes(c);
+                code++;
+            }
+            return total;
+        } else if (code<78){
+            while (code<=78){
+                c = (char)code;
+                total = total+quantes(c);
+                code++;
+            }
+            return total;
+        } else if (code<90){
+            while (code<=90){
+                c = (char)code;
+                total = total+quantes(c);
+                code++;
+            }
+            return total;
+        }
+        return 0;
+    }
+    private int comprovarCaracter(char s){ // metode que retorna la fila a la qual correspon el caracter introduit, nomes comprova caracters en majuscules pero ja ho te en compte la programacio
         if(s=='A' || s=='B' || s=='C' || s=='D' || s=='E' || s=='F' || s=='G' || s=='H'){
             return 0;
         } else if(s=='I' || s=='J' || s=='K' || s=='L' || s=='M' || s=='N'){
@@ -118,6 +160,14 @@ public class Poblacio {
             return 2;
         }
         return -1;
+    }
+    private int saberLlargariaFila(int fila){ // metode que retorna la llargaria de la fila, es imprescindible abans d'invocar aquest metode invocar el metode comprovarCaracter
+        return switch (fila){
+            case 0 -> numAH;
+            case 1 -> numIN;
+            case 2 -> numOZ;
+            default -> 0;
+        };
     }
     private int recurregutMetodeQuantes(int length, int fila){ // metode que calcula cada fila quantes senyals té
         int total=0;
@@ -142,9 +192,6 @@ public class Poblacio {
         }
         return false; // no s'ha trobat la ubicacio a la matriu
     }
-    
-    public int quantes(){
-        return recurregutMetodeQuantes(numAH,0)+recurregutMetodeQuantes(numIN,1)+recurregutMetodeQuantes(numOZ,2);
-    }
 }
+
 
