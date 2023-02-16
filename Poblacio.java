@@ -123,9 +123,9 @@ public class Poblacio {
         }
         return 0;
     }
-    public int quantes (char inici, char fi){
+    public int quantes (char inici, char fi){ 
         String temp = String.valueOf(inici);
-        int code = temp.charAt(0); int total=0;
+        int code = temp.charAt(0); int total=0; // agafem el codi del caracter y d'aquesta manera sabem el interval que hem de recorrer
         char c = ' ';
         if (code>=65 && code<=73){
             while (code>=65 && code<=73){
