@@ -1,5 +1,4 @@
 package Sessio2;
-
 public class Poblacio {
     // f0 = emagatzema de forma consecutiva les ubicacions amb noms de carrers amb intervals [‘a’,’h’];
     // f1 = emagatzema de forma consecutiva les ubicacions amb noms de carrers amb intervals [‘i’,’n’];
@@ -45,27 +44,27 @@ public class Poblacio {
         int fila=comprovarCaracter(s);
         if(fila==0){
             if (recurregutMetodeAfegir(numAH,fila,c)){
-                    return false; // la ubiacio ja esta registrada a la matriu
+                return false; // la ubiacio ja esta registrada a la matriu
             } else {
-                ubicacio[fila][numAH]=c;
                 numAH++;
+                ubicacio[fila][numAH]=c;
                 return true; // ubicacio registrada amb exit
             }
         } else if(fila==1){
-            if (recurregutMetodeAfegir(numAH,fila,c)){
-                    return false; // la ubiacio ja esta registrada a la matriu
+            if (recurregutMetodeAfegir(numIN,fila,c)){
+                return false; // la ubiacio ja esta registrada a la matriu
             } else {
-                    ubicacio[fila][numIN]=c;
-                    numIN++;
-                    return true; // ubicacio registrada amb exit
+                numIN++;
+                ubicacio[fila][numIN]=c;
+                return true; // ubicacio registrada amb exit
             }
         } else if(fila==2){
-            if (recurregutMetodeAfegir(numAH,fila,c)){
-                    return false; // la ubiacio ja esta registrada a la matriu
+            if (recurregutMetodeAfegir(numOZ,fila,c)){
+                return false; // la ubiacio ja esta registrada a la matriu
             } else {
-                    ubicacio[fila][numOZ]=c;
-                    numOZ++;
-                    return true; // ubicacio registrada amb exit
+                numOZ++;
+                ubicacio[fila][numOZ]=c;
+                return true; // ubicacio registrada amb exit
             }
         }
         return false; // no pasa mai
@@ -93,7 +92,7 @@ public class Poblacio {
                 numIN--;
                 return true; // la ubiacio ha sigut eliminada ab exit
             } else {
-                    return false; // la ubicacio  no esta a la matriu
+                return false; // la ubicacio  no esta a la matriu
             }
 
         } else if(fila==2){
@@ -121,12 +120,12 @@ public class Poblacio {
                 total=total+ubicacio[fila][y].getNumSenyals();
             }
         }
-        return 0;
+        return total;
     }
     public int quantes (char inici, char fi){
         String temp = String.valueOf(Character.toUpperCase(inici));
         String temp1 = String.valueOf(Character.toUpperCase(fi));
-        int code = temp.charAt(0); 
+        int code = temp.charAt(0);
         int code1 = temp1.charAt(0);
         int total=0;
         char c = ' ';
@@ -137,12 +136,67 @@ public class Poblacio {
         }
         return total;
     }
+    public int quantes (int tipusSenyal){
+        return recurregutMetodeQuantes(tipusSenyal,numAH,0) + recurregutMetodeQuantes(tipusSenyal,numIN,1) + recurregutMetodeQuantes(tipusSenyal,numOZ,2);
+    }
+    public int quantes (char quin, int tipusSenyal){
+        int fila = comprovarCaracter(Character.toUpperCase(quin));
+        int col = saberLlargariaFila(fila);
+        return recurregutMetodeQuantes(tipusSenyal,col,fila);
+    }
+    public int quantes(char inici, char fi, int tipusSenyal){
+        int col=0;
+        int total = 0;
+        char c=' ';
+        String quin = " ";
+        for (int x=0; x<3;x++){
+            col = saberLlargariaFila(x);
+            for (int y=0; y<col;y++){
+                quin = ubicacio[x][y].getSenyal(y).getTipusSenyal();
+                c=ubicacio[x][y].getNomCarrer().toUpperCase().charAt(0);
+                if (c>=inici && quin.equals(tipusSenyal(tipusSenyal)) || c<=fi && quin.equals(tipusSenyal(tipusSenyal))){
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+    public SenyalTransit[] donaSenyalsUbicacio (String nomCarrer){
+        SenyalTransit [] s = new SenyalTransit[numAH+numOZ+numIN];
+        int cont = 0;
+        char c = nomCarrer.toUpperCase().charAt(0);
+        int fila = comprovarCaracter(c);
+        int col = saberLlargariaFila(fila);
+        for (int y=0; y<col;y++){
+            if (ubicacio[fila][y].getNomCarrer().toUpperCase().charAt(0)==c){
+                    s [cont] = ubicacio[fila][y].getSenyal(y);
+                    cont++;
+            }
+        }
+        return s;
+    }
+    private String senyalsEnUnRang(int fila, char c){
+        if (ubicacio[1][2].getNomCarrer().toUpperCase().charAt(0)==c){
+            return ubicacio[1][2].getSenyals();
+        } else {
+            return null;
+        }
+    }
+    private int recurregutMetodeQuantes (int tipus, int length, int fila){
+        int total = 0;
+        for (int y=0; y<numIN;y++){
+            if (ubicacio[fila][y].getSenyal(y).getTipusSenyal().equals(tipusSenyal(tipus))){
+                total++;
+            }
+        }
+        return total;
+    }
     private int comprovarCaracter(char s){ // metode que retorna la fila a la qual correspon el caracter introduit, nomes comprova caracters en majuscules pero ja ho te en compte la programacio
-        if(s=='A' || s=='B' || s=='C' || s=='D' || s=='E' || s=='F' || s=='G' || s=='H'){
+        if(s>='A' && s <='H'){
             return 0;
-        } else if(s=='I' || s=='J' || s=='K' || s=='L' || s=='M' || s=='N'){
+        } else if(s>='I' && s<='N'){
             return 1;
-        } else if(s=='O' || s=='P' || s=='Q' || s=='R' || s=='S' || s=='T' || s=='U'|| s=='V' || s=='W' || s=='X' || s=='Y' || s=='Z'){
+        } else if(s>='O' && s <='Z'){
             return 2;
         }
         return -1;
@@ -178,6 +232,16 @@ public class Poblacio {
         }
         return false; // no s'ha trobat la ubicacio a la matriu
     }
+    private String tipusSenyal(int quin){
+        return switch (quin) {
+            case 1,2 -> "Indicacio";
+            case 3 -> "Advertencia";
+            case 4 -> "Reglamentacio";
+            default -> null;
+        };
+    }
+
 }
+
 
 
