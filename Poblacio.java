@@ -184,13 +184,6 @@ public class Poblacio {
         }
         return false; // totes les posicions plenes
     }
-    private String senyalsEnUnRang(int fila, char c){
-        if (ubicacio[1][2].getNomCarrer().toUpperCase().charAt(0)==c){
-            return ubicacio[1][2].getSenyals();
-        } else {
-            return null;
-        }
-    }
     private int recurregutMetodeQuantes (int tipus, int length, int fila){
         int total = 0;
         for (int y=0; y<numIN;y++){
