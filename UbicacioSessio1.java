@@ -15,7 +15,6 @@ public class Ubicacio {
         maxSenyals=Maxim;
         nomCarrer=carrer;
         numCarrer=numero;
-        System.out.println("El numero de senyals es: " + numSenyals);
     }
     public String getNomCarrer(){
         return nomCarrer;
@@ -38,17 +37,14 @@ public class Ubicacio {
     }
     public boolean afegirSenyal (SenyalTransit c){
         if (maxSenyals==numSenyals){
-            System.out.println("Esta entrant aqui");
             return false;
         } else {
             for (int x=0; x<maxSenyals; x++){
                 if(senyals[x]==null){
                     senyals[x]=c;
                     numSenyals++;
-                    System.out.println("Senyal afegit amb exit");
                     return true;
                 } else if (senyals[x].getCodi().equals(c.getCodi())){
-                    System.out.println("Aquesta senyal ja esta al array");
                     return false;
                 }
             }
