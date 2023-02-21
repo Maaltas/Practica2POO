@@ -46,24 +46,24 @@ public class Poblacio {
             if (recurregutMetodeAfegir(numAH,fila,c)){
                 return false; // la ubiacio ja esta registrada a la matriu
             } else {
-                numAH++;
                 ubicacio[fila][numAH]=c;
+                numAH++;
                 return true; // ubicacio registrada amb exit
             }
         } else if(fila==1){
             if (recurregutMetodeAfegir(numIN,fila,c)){
                 return false; // la ubiacio ja esta registrada a la matriu
             } else {
-                numIN++;
                 ubicacio[fila][numIN]=c;
+                numIN++;
                 return true; // ubicacio registrada amb exit
             }
         } else if(fila==2){
             if (recurregutMetodeAfegir(numOZ,fila,c)){
                 return false; // la ubiacio ja esta registrada a la matriu
             } else {
-                numOZ++;
                 ubicacio[fila][numOZ]=c;
+                numOZ++;
                 return true; // ubicacio registrada amb exit
             }
         }
@@ -75,7 +75,7 @@ public class Poblacio {
         int col=0;
         if(fila==0){
             col = recurregutMetodeEliminar(numAH,fila,c);
-            if (col>0){
+            if (col>=0){
                 ubicacio[fila][col]=null;
                 ubicacio[fila][col]=ubicacio[fila][numAH];
                 numAH--;
@@ -86,7 +86,7 @@ public class Poblacio {
 
         } else if(fila==1){
             col = recurregutMetodeEliminar(numIN,fila,c);
-            if (col>0){
+            if (col>=0){
                 ubicacio[fila][col]=null;
                 ubicacio[fila][col]=ubicacio[fila][numIN];
                 numIN--;
@@ -97,7 +97,7 @@ public class Poblacio {
 
         } else if(fila==2){
             col = recurregutMetodeEliminar(numOZ,fila,c);
-            if (col>0){
+            if (col>=0){
                 ubicacio[fila][col]=null;
                 ubicacio[fila][col]=ubicacio[fila][numOZ];
                 numOZ--;
@@ -116,7 +116,7 @@ public class Poblacio {
         int length = saberLlargariaFila(fila);
         int total=0;
         for (int y=0; y<length; y++){
-            if (ubicacio[fila][y].getNomCarrer().toUpperCase().charAt(0)==quin){
+            if (ubicacio[fila][y].getNomCarrer().toUpperCase().charAt(0)==Character.toUpperCase(quin)){
                 total=total+ubicacio[fila][y].getNumSenyals();
             }
         }
@@ -154,8 +154,8 @@ public class Poblacio {
             for (int y=0; y<col;y++){
                 quin = ubicacio[x][y].getSenyal(y).getTipusSenyal();
                 c=ubicacio[x][y].getNomCarrer().toUpperCase().charAt(0);
-                if (c>=inici && quin.equals(tipusSenyal(tipusSenyal)) || c<=fi && quin.equals(tipusSenyal(tipusSenyal))){
-                    total++;
+                if (c>=Character.toUpperCase(inici) && quin.equals(tipusSenyal(tipusSenyal)) || c<=Character.toUpperCase(fi) && quin.equals(tipusSenyal(tipusSenyal))){
+                    total=total+ubicacio[x][y].getNumSenyals();
                 }
             }
         }
@@ -169,11 +169,20 @@ public class Poblacio {
         int col = saberLlargariaFila(fila);
         for (int y=0; y<col;y++){
             if (ubicacio[fila][y].getNomCarrer().toUpperCase().charAt(0)==c){
-                    s [cont] = ubicacio[fila][y].getSenyal(y);
-                    cont++;
+                s [cont] = ubicacio[fila][y].getSenyal(y);
+                cont++;
             }
         }
         return s;
+    }
+    private boolean  afegirUbicacio (int fila,Ubicacio c){
+        for (int x=0; x<maxUbicacions;x++){
+            if (ubicacio[fila][x]==null){
+                ubicacio[fila][x]=c;
+                return true; //s'ha afegit la ubicacio
+            }
+        }
+        return false; // totes les posicions plenes
     }
     private String senyalsEnUnRang(int fila, char c){
         if (ubicacio[1][2].getNomCarrer().toUpperCase().charAt(0)==c){
@@ -186,7 +195,7 @@ public class Poblacio {
         int total = 0;
         for (int y=0; y<numIN;y++){
             if (ubicacio[fila][y].getSenyal(y).getTipusSenyal().equals(tipusSenyal(tipus))){
-                total++;
+                total=total+ubicacio[fila][y].getNumSenyals();
             }
         }
         return total;
