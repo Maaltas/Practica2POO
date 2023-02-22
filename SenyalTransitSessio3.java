@@ -40,22 +40,22 @@ public abstract class SenyalTransit {
     private void inicialitzarSenyal(String codi){
         String[] parts = codi.split("-");
         switch (parts[1]) {
-            case "QUA" -> {
+            case "QUA": {
                 tipus = Quadrada;
                 numIndicacio++;
             }
-            case "REC" ->{
+            case "REC":{
                 tipus = Rectangular;
                 numIndicacio++;
-            } 
-            case "TRI" ->{
+            }
+            case "TRI":{
                 tipus = Triangular;
                 numAdvertencia++;
-            } 
-            case "ROD" ->{
+            }
+            case "ROD":{
                 tipus = Rodona;
                 numReglamentacio++;
-            } 
+            }
         }
     }
     public int getNumAdvertencia(){
@@ -111,7 +111,7 @@ public abstract class SenyalTransit {
     public String toString(){
         String tipus=" ";
         if ((this instanceof Advertencia)) {
-            tipus = "Advertencia";
+            tipus = "Advertenica";
         } else if ((this instanceof Reglamentacio)) {
             tipus = "Reglamentacio";
         } else if ((this instanceof Indicacio)) {
@@ -125,3 +125,4 @@ public abstract class SenyalTransit {
     }
     public abstract float area();
 }
+
