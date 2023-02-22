@@ -37,8 +37,8 @@ public abstract class SenyalTransit {
     public SenyalTransit (int anyColocacio, Ubicacio u){
         this(GenerarParametresSenyal.generarCodi(),u,anyColocacio);
     }
-    private void inicialitzarSenyal(String s){
-        String[] parts = s.split("-");
+    private void inicialitzarSenyal(String codi){
+        String[] parts = codi.split("-");
         switch (parts[1]) {
             case "QUA" -> {
                 tipus = Quadrada;
