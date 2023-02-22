@@ -205,12 +205,12 @@ public class Poblacio {
         return -1;
     }
     private int saberLlargariaFila(int fila){ // metode que retorna la llargaria de la fila, es imprescindible abans d'invocar aquest metode invocar el metode comprovarCaracter
-        return switch (fila){
-            case 0 -> numAH;
-            case 1 -> numIN;
-            case 2 -> numOZ;
-            default -> 0;
-        };
+        switch (fila){
+            case 0 : return numAH;
+            case 1 : return numIN;
+            case 2 : return numOZ;
+            default : return 0;
+        }
     }
     private int recurregutMetodeQuantes(int length, int fila){ // metode que calcula cada fila quantes senyals té
         int total=0;
