@@ -47,13 +47,16 @@ public class SenyalTransit {
         }
     }
     public String getTipusSenyal(){
-        return switch (tipus) {
-            case 1 : "Indicacio";
-            case 2 : "Indicacio";
-            case 3 : "Advertencia";
-            case 4 : "Reglamentacio";
-            default : null;
-        };
+        if (tipus==Quadrada){
+            return "Indicacio";
+        } else if (tipus==Rectangular){
+            return "Indicacio";
+        }else if (tipus==Triangular){
+            return "Advertencia";
+        }else if (tipus==Rodona){
+            return "Reglamentacio";
+        }
+        return null;
     }
     public String getCodi(){
         return codi;
