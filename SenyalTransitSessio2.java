@@ -29,22 +29,30 @@ public class SenyalTransit {
         this(GenerarParametresSenyal.generarCodi(),u,anyColocacio);
     }
 
-    private void inicialitzarSenyal(String s){
-        String[] parts = s.split("-");
+    private void inicialitzarSenyal(String codi){
+        String[] parts = codi.split("-");
         switch (parts[1]) {
-            case "QUA" -> tipus = 1;
-            case "REC" -> tipus = 2;
-            case "TRI" -> tipus = 3;
-            case "ROD" -> tipus = 4;
+            case "QUA": {
+                tipus = Quadrada;
+            }
+            case "REC":{
+                tipus = Rectangular;
+            }
+            case "TRI":{
+                tipus = Triangular;
+            }
+            case "ROD":{
+                tipus = Rodona;
+            }
         }
     }
     public String getTipusSenyal(){
         return switch (tipus) {
-            case 1 -> "Indicacio";
-            case 2 -> "Indicacio";
-            case 3 -> "Advertencia";
-            case 4 -> "Reglamentacio";
-            default -> null;
+            case 1 : "Indicacio";
+            case 2 : "Indicacio";
+            case 3 : "Advertencia";
+            case 4 : "Reglamentacio";
+            default : null;
         };
     }
     public String getCodi(){
