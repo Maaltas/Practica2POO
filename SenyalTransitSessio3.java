@@ -30,11 +30,6 @@ public abstract class SenyalTransit {
             this.ubicacio=ubicacio;
             this.anyUbicacio=anyColocacio;
         }
-        switch (tipus){
-            case 1,2: numIndicacio++;
-            case 3: numAdvertencia++;
-            case 4: numReglamentacio++;
-        }
     }
     public SenyalTransit (Ubicacio u){
         this(GenerarParametresSenyal.generarCodi(),u,GenerarParametresSenyal.generarAny(2023));
@@ -45,10 +40,22 @@ public abstract class SenyalTransit {
     private void inicialitzarSenyal(String s){
         String[] parts = s.split("-");
         switch (parts[1]) {
-            case "QUA" -> tipus = Quadrada;
-            case "REC" -> tipus = Rectangular;
-            case "TRI" -> tipus = Triangular;
-            case "ROD" -> tipus = Rodona;
+            case "QUA" -> {
+                tipus = Quadrada;
+                numIndicacio++;
+            }
+            case "REC" ->{
+                tipus = Rectangular;
+                numIndicacio++;
+            } 
+            case "TRI" ->{
+                tipus = Triangular;
+                numAdvertencia++;
+            } 
+            case "ROD" ->{
+                tipus = Rodona;
+                numReglamentacio++;
+            } 
         }
     }
     public int getNumAdvertencia(){
