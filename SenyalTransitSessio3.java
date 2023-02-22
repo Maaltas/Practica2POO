@@ -30,6 +30,11 @@ public abstract class SenyalTransit {
             this.ubicacio=ubicacio;
             this.anyUbicacio=anyColocacio;
         }
+        switch (tipus){
+            case 1,2: numIndicacio++;
+            case 3: numAdvertencia++;
+            case 4: numReglamentacio++;
+        }
     }
     public SenyalTransit (Ubicacio u){
         this(GenerarParametresSenyal.generarCodi(),u,GenerarParametresSenyal.generarAny(2023));
@@ -99,7 +104,7 @@ public abstract class SenyalTransit {
     public String toString(){
         String tipus=" ";
         if ((this instanceof Advertencia)) {
-            tipus = "Advertenica";
+            tipus = "Advertencia";
         } else if ((this instanceof Reglamentacio)) {
             tipus = "Reglamentacio";
         } else if ((this instanceof Indicacio)) {
@@ -112,6 +117,4 @@ public abstract class SenyalTransit {
         }
     }
     public abstract float area();
-
-
 }
