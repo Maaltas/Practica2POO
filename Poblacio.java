@@ -235,12 +235,12 @@ public class Poblacio {
         return false; // no s'ha trobat la ubicacio a la matriu
     }
     private String tipusSenyal(int quin){
-        return switch (quin) {
-            case 1,2 -> "Indicacio";
-            case 3 -> "Advertencia";
-            case 4 -> "Reglamentacio";
-            default -> null;
-        };
+        switch (quin) {
+            case 1,2 : return "Indicacio";
+            case 3 : return "Advertencia";
+            case 4 : return "Reglamentacio";
+            default : return null;
+        }
     }
 
 }
